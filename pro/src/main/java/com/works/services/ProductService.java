@@ -3,9 +3,11 @@ package com.works.services;
 import com.works.entities.Product;
 import com.works.entities.dto.ProductAddDto;
 import com.works.entities.dto.ProductUpdateDto;
+import com.works.profiles.IConfig;
 import com.works.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,11 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
+
+    @Value("${comp.title}")
+    private String comp_title;
+
+    private final IConfig iConfig;
 
     private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
@@ -24,6 +31,8 @@ public class ProductService {
     }
 
     public List<Product> productList(){
+        System.out.println("comp_title: "  + comp_title);
+        System.out.println(iConfig.config());
         return productRepository.findAll();
     }
 
